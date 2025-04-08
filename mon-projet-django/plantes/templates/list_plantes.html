@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion des Plantes d'Intérieur</title>
+</head>
+<body>
+    <h1>Liste des Plantes</h1>
+    <ul>
+        {% for plante in plantes %}
+            <li>{{ plante.nom }} - {{ plante.type_plante }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'ajouter_plante' %}">Ajouter une Plante</a>
+</body>
+</html>
