@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+actor admin
+
+rectangle "Application Web Gestionnaire de Plantes" {
+  (Ajouter une plante)
+  (Modifier une plante)
+  (Supprimer une plante)
+  (Planifier l'arrosage)
+  (Recevoir un rappel)
+  (Voir conseils d’entretien)
+  (Identifier une plante par photo)
+}
+
+admin --> (Ajouter une plante)
+admin --> (Modifier une plante)
+admin --> (Supprimer une plante)
+admin --> (Planifier l'arrosage)
+admin --> (Recevoir un rappel)
+admin --> (Voir conseils d’entretien)
+admin --> (Identifier une plante par photo)
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+skinparam linetype ortho
+
+node "Utilisateur" {
+  component "Navigateur Web\n(Vue HTML/CSS/JS)" as navigateur
+}
+
+node "Serveur Web" {
+  component "Frontend (React/Vue/Angular)"
+}
+
+node "Serveur Applicatif" {
+  component "Backend (Node.js / Django / Spring)"
+}
+
+database "Base de Données" as DB
+
+node "Cloud Storage" {
+  component "Stockage Photos\net Données Plantes"
+}
+
+navigateur --> "Frontend (React/Vue/Angular)" : HTTP/HTTPS
+"Frontend (React/Vue/Angular)" --> "Backend (Node.js / Django / Spring)" : API REST / GraphQL
+"Backend (Node.js / Django / Spring)" --> DB : Requêtes SQL
+"Backend (Node.js / Django / Spring)" --> "Stockage Photos\net Données Plantes" : API Cloud / Stockage
+
+@enduml

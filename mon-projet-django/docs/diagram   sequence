@@ -1,0 +1,18 @@
+startuml
+actor Utilisateur
+participant "Interface Web" as Web
+participant "Serveur Backend" as Backend
+database "Base de Données" as DB
+
+Utilisateur -> Web : Cliquer "Ajouter Plante"
+Web -> Backend : Requête formulaire
+Backend --> Web : Formulaire vide
+Utilisateur -> Web : Remplir et soumettre formulaire
+Web -> Backend : POST /addPlant (données plante)
+Backend -> Backend : Valider données
+Backend -> DB : INSERT INTO Plantes
+DB --> Backend : Confirmation / ID plante
+Backend --> Web : Succès ajout plante
+Web --> Utilisateur : Affichage confirmation
+
+@enduml
