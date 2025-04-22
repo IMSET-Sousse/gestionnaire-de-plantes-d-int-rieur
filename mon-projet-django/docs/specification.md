@@ -1,77 +1,135 @@
-🌿 Spécification – Application Web "Gestionnaire de Plantes d’Intérieur"
-🧾 Objectif de l'application
-L'application a pour but d'aider les utilisateurs à gérer leurs plantes d’intérieur en leur fournissant des rappels d’entretien, des fiches informatives, et un suivi personnalisé (arrosage, exposition, rempotage, etc.).
+Cahier des charges – Application de gestion de plantes d’intérieur (Django)
+Contexte et objectifs
 
-⚙️ Spécifications Fonctionnelles
-Utilisateurs
-Inscription / Connexion
+Contexte  
+Vous développez une application (web et/ou mobile) destinée aux particuliers et aux professionnels pour suivre l’état et l’entretien de leurs plantes.
 
-Par email/mot de passe
+Objectifs  
 
-Option connexion via Google (facultatif)
+Centraliser les données de chaque plante (espèce, date d’achat, emplacement, historique d’arrosage, etc.) 
+Rappeler automatiquement les entretiens à effectuer (arrosage, fertilisation, rempotage…) 
+Fournir des conseils personnalisés selon l’espèce et les conditions environnementales 
 
-Profil utilisateur
 
-Photo, nom, localisation (pour adapter les recommandations en fonction du climat)
 
-Gestion des Plantes
-Ajouter une plante :
+Périmètre
 
-Nom de la plante
+Inclus  
 
-Type (succulente, tropicale, etc.)
+Gestion d’un catalogue d’espèces (base de données) 
+Création et modification de fiches « plante » 
+Planification et notifications d’actions d’entretien 
+Suivi visuel via photos et historique 
+Statistiques d’ensemble (nombre de plantes, actions récurrentes, etc.)
 
-Photo
 
-Date d’acquisition
+Exclus (pour la v1)  
 
-Emplacement (pièce)
+Vente ou e‑commerce de plantes 
+Intelligence artificielle de diagnostic (cependant, prévoir extensibilité) 
 
-Voir la liste de ses plantes
 
-Détails d’une plante :
 
-Informations spécifiques
+Acteurs
 
-Dernier arrosage
 
-Prochain arrosage
+Utilisateur final : crée et suit ses plantes 
+Administrateur : gère le catalogue d’espèces et les paramètres globaux 
+Système de notifications : envoie rappels par mail et/ou push 
 
-Historique des soins
 
-Modifier / Supprimer une plante
 
-Rappels et Notifications
-Système de rappels pour :
 
-Arrosage
+Exigences fonctionnelles
+Authentification 
 
-Brumisation
+   - Inscription via e‑mail et mot de passe  
+   - Réinite. de mot de passe par e‑mail  
 
-Engrais
 
-Rempotage
+Gestion des plantes
 
-Notifications par email (optionnelles)
+   - Création / édition / suppression de fiche plante  
+   - Association de tags (intérieur/extérieur, luminosité, etc.)  
+   - Upload et affichage de photos  
 
-Base de Données Botanique
-Intégrer une petite base de données de plantes avec :
 
-Nom scientifique et commun
+Planification d’actions
 
-Besoins en lumière, eau, humidité
+   - Définir un calendrier récurrent (RRULE) pour chaque type d’entretien  
+   - Paramétrer rappel par notification locale ou par e‑mail  
 
-Fréquence recommandée d'entretien
 
-Tableau de Bord
-Vue d’ensemble :
+Notifications
 
-Nombre de plantes
+   - Format : titre, description, lien vers la fiche plante  
+   - Fréquence : configurable (minutes, heures, jours)  
 
-Prochains soins à faire
 
-État général des plantes
+Tableau de bord 
 
-🧑‍💻 Spécifications Techniques
-Stack
-Backend : Django (Python)
+   - Vue synthétique : prochaines actions, plantes en bonne/mauvaise santé  
+   - Filtres : par espèce, par statut d’entretien                                                                             
+
+Exigences non‑fonctionnelles
+
+
+Performance : temps de réponse < 2 s sur opérations courantes 
+Scalabilité : prise en charge de plusieurs milliers d’utilisateurs 
+Sécurité : chiffrement des mots de passe (bcrypt), HTTPS obligatoire 
+Accessibilité : conformité WCAG 2.1 niveau AA 
+Compatibilité : responsive web design, iOS ≥ 13, Android ≥ 9 
+
+
+ 7. Architecture technique
+
+Frontend : React (web) 
+Backend : Node.js + Express ou Django REST Framework 
+Base de données : PostgreSQL (principal) + Redis (cache) 
+Notifications : Firebase Cloud Messaging + SMTP (Mailgun) 
+Hébergement : AWS (EC2, RDS, S3) ou équivalent 
+
+
+
+Modèle de données (extrait simplifié)
+
+
+Utilisateur** (id, nom, e‑mail, mot_de_passe_hashé, date_inscription) 
+Espèce (id, nom_latin, nom_commun, description, besoins_lumière, besoins_eau) 
+Plante (id, utilisateur_id, espece id, nom personnalisé, date_achat, emplacement) 
+Action (id, plante_id, type_action, date_planifiée, statut, date_réalisée) 
+
+
+
+Interfaces utilisateur (maquettes à prévoir)
+
+
+Écran de connexion/inscription 
+Liste des plantes avec aperçu photo et prochaine action 
+Fiche détail plante 
+Formulaire de planification d’entretien 
+Dashboard statistiques 
+
+
+
+Contraintes et risques
+
+
+Dépendances externes : fiabilité du service SMTP / FCM 
+Contraintes réglementaires : RGPD (données personnelles) 
+Risques techniques : synchronisation des rappels sur plusieurs appareils 
+
+
+
+Planning de réalisation (exemple)
+
+| Phase                   | Durée estimée | Livrables                          |
+|-------------------------|---------------|------------------------------------|
+| 1. Analyse & spéc.      | 2 semaines    | Cahier des spécifications validé   |
+| 2. Design UI/UX         | 3 semaines    | Maquettes & prototypes interactifs |
+| 3. Développement v1     | 6 semaines    | API + Frontend de base             |
+| 4. Tests & corrections  | 2 semaines    | Rapport de tests                   |
+| 5. Déploiement pilote   | 1 semaine     | Version bêta en production         |
+
+
+ realise par : mohamed slama et raed souissi et omar mazouz , rachid elhani
