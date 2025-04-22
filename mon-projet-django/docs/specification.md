@@ -1,135 +1,100 @@
-Cahier des charges – Application de gestion de plantes d’intérieur (Django)
-Contexte et objectifs
-
-Contexte  
-Vous développez une application (web et/ou mobile) destinée aux particuliers et aux professionnels pour suivre l’état et l’entretien de leurs plantes.
-
-Objectifs  
-
-Centraliser les données de chaque plante (espèce, date d’achat, emplacement, historique d’arrosage, etc.) 
-Rappeler automatiquement les entretiens à effectuer (arrosage, fertilisation, rempotage…) 
-Fournir des conseils personnalisés selon l’espèce et les conditions environnementales 
-
-
-
-Périmètre
-
-Inclus  
-
-Gestion d’un catalogue d’espèces (base de données) 
-Création et modification de fiches « plante » 
-Planification et notifications d’actions d’entretien 
-Suivi visuel via photos et historique 
-Statistiques d’ensemble (nombre de plantes, actions récurrentes, etc.)
-
-
-Exclus (pour la v1)  
-
-Vente ou e‑commerce de plantes 
-Intelligence artificielle de diagnostic (cependant, prévoir extensibilité) 
-
-
-
-Acteurs
-
-
-Utilisateur final : crée et suit ses plantes 
-Administrateur : gère le catalogue d’espèces et les paramètres globaux 
-Système de notifications : envoie rappels par mail et/ou push 
-
-
-
-
-Exigences fonctionnelles
-Authentification 
-
-   - Inscription via e‑mail et mot de passe  
-   - Réinite. de mot de passe par e‑mail  
-
-
-Gestion des plantes
-
-   - Création / édition / suppression de fiche plante  
-   - Association de tags (intérieur/extérieur, luminosité, etc.)  
-   - Upload et affichage de photos  
-
-
-Planification d’actions
-
-   - Définir un calendrier récurrent (RRULE) pour chaque type d’entretien  
-   - Paramétrer rappel par notification locale ou par e‑mail  
-
-
-Notifications
-
-   - Format : titre, description, lien vers la fiche plante  
-   - Fréquence : configurable (minutes, heures, jours)  
-
-
-Tableau de bord 
-
-   - Vue synthétique : prochaines actions, plantes en bonne/mauvaise santé  
-   - Filtres : par espèce, par statut d’entretien                                                                             
-
-Exigences non‑fonctionnelles
-
-
-Performance : temps de réponse < 2 s sur opérations courantes 
-Scalabilité : prise en charge de plusieurs milliers d’utilisateurs 
-Sécurité : chiffrement des mots de passe (bcrypt), HTTPS obligatoire 
-Accessibilité : conformité WCAG 2.1 niveau AA 
-Compatibilité : responsive web design, iOS ≥ 13, Android ≥ 9 
-
-
- 7. Architecture technique
-
-Frontend : React (web) 
-Backend : Node.js + Express ou Django REST Framework 
-Base de données : PostgreSQL (principal) + Redis (cache) 
-Notifications : Firebase Cloud Messaging + SMTP (Mailgun) 
-Hébergement : AWS (EC2, RDS, S3) ou équivalent 
-
-
-
-Modèle de données (extrait simplifié)
-
-
-Utilisateur** (id, nom, e‑mail, mot_de_passe_hashé, date_inscription) 
-Espèce (id, nom_latin, nom_commun, description, besoins_lumière, besoins_eau) 
-Plante (id, utilisateur_id, espece id, nom personnalisé, date_achat, emplacement) 
-Action (id, plante_id, type_action, date_planifiée, statut, date_réalisée) 
-
-
-
-Interfaces utilisateur (maquettes à prévoir)
-
-
-Écran de connexion/inscription 
-Liste des plantes avec aperçu photo et prochaine action 
-Fiche détail plante 
-Formulaire de planification d’entretien 
-Dashboard statistiques 
-
-
-
-Contraintes et risques
-
-
-Dépendances externes : fiabilité du service SMTP / FCM 
-Contraintes réglementaires : RGPD (données personnelles) 
-Risques techniques : synchronisation des rappels sur plusieurs appareils 
-
-
-
-Planning de réalisation (exemple)
-
-| Phase                   | Durée estimée | Livrables                          |
-|-------------------------|---------------|------------------------------------|
-| 1. Analyse & spéc.      | 2 semaines    | Cahier des spécifications validé   |
-| 2. Design UI/UX         | 3 semaines    | Maquettes & prototypes interactifs |
-| 3. Développement v1     | 6 semaines    | API + Frontend de base             |
-| 4. Tests & corrections  | 2 semaines    | Rapport de tests                   |
-| 5. Déploiement pilote   | 1 semaine     | Version bêta en production         |
-
-
- realise par : mohamed slama et raed souissi et omar mazouz , rachid elhani
+�
+�
+ Cahier des charges – Application de gestion de 
+plantes d’intérieur (Django) 
+1. 
+�
+�
+ Contexte et objectifs 
+L'application a pour but d’aider les utilisateurs à gérer leurs plantes d’intérieur. Elle permet : 
+● De suivre l’arrosage, l’exposition à la lumière, et les besoins en engrais. 
+● D’avoir des rappels personnalisés selon les besoins de chaque plante. 
+● De consulter des fiches informatives sur chaque type de plante. 
+2. 
+�
+�
+ Cible utilisateur 
+● Les amateurs de plantes d’intérieur. 
+● Les personnes souhaitant prendre soin de leurs plantes sans expertise botanique. 
+3. 
+⚙
+ Fonctionnalités attendues 
+a. Gestion des utilisateurs 
+● Inscription / Connexion / Déconnexion. 
+● Profil utilisateur (nom, email, préférences). 
+b. Gestion des plantes 
+● Ajouter une plante (nom, espèce, date d’acquisition, photo). 
+● Associer des besoins (arrosage, engrais, lumière). 
+● Éditer / Supprimer une plante. 
+c. Suivi & rappels 
+● Historique des arrosages. 
+● Rappels automatiques (notifications email ou affichées dans le tableau de bord). 
+● Calendrier d’entretien. 
+d. Base de données de plantes 
+● Fiches préremplies avec données botaniques (nom scientifique, famille, fréquence 
+d’arrosage, etc.). 
+● Recherche par nom ou caractéristiques. 
+e. Dashboard 
+● Vue d’ensemble des plantes. 
+● Alertes (plantes à arroser aujourd’hui, plantes malades...). 
+f. Autres options (bonus) 
+● Upload de photo pour détecter l’état de la plante (IA). 
+● Communauté (échange de conseils, commentaires...). 
+4. 
+�
+�
+ Architecture technique 
+a. Backend 
+● Framework : Django 4.x 
+● Modules : 
+○ Django Rest Framework (si API prévue) 
+○ Django-cron (rappels automatiques) 
+○ Django Allauth (gestion utilisateur) 
+b. Frontend 
+● HTML/CSS avec Django Templates 
+● Option : Intégration React ou Vue.js (API REST) 
+c. Base de données 
+● PostgreSQL ou SQLite (développement) 
+d. Hébergement 
+● Heroku / Railway / Render / Serveur privé 
+● Stockage média : Cloudinary / Amazon S3 / local 
+5. 
+�
+�
+ Sécurité 
+● Authentification sécurisée (hashage des mots de passe). 
+● Permissions selon utilisateur. 
+● Protection CSRF, XSS. 
+6. 
+�
+�
+ Tests & Qualité 
+● Tests unitaires (modèles, vues) 
+● Tests fonctionnels (formulaires, flux utilisateurs) 
+● Validation via Django Admin 
+7. 
+�
+�
+ Planning estimatif 
+Étape 
+Spécifications / 
+Maquettes 
+Durée 
+estimée 
+1 semaine 
+Développement backend 2 à 3 
+semaines 
+Intégration frontend 
+1 à 2 
+semaines 
+Tests & déploiement 
+1 semaine 
+8. 
+�
+�
+ Livrables 
+● Code source complet 
+● Documentation technique 
+● Manuel utilisateur 
+● Base de données pré-remplie (plantes communes) 
+realise par : mohamed slama et raed souissi et omar mazouz , rachid elhani
