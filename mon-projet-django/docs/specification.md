@@ -73,20 +73,8 @@ Pillow (gestion images)
 
 Django Storages (si hébergement sur S3 ou autre)
 
-📦 5. Modèle de données simplifié (extrait)
-python
-Copier
-Modifier
-class Plant(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
-    species = models.CharField(max_length=100, blank=True)
-    photo = models.ImageField(upload_to='plants/', blank=True)
-    watering_frequency = models.IntegerField(help_text="En jours")
-    last_watered = models.DateField(null=True, blank=True)
-    light_requirement = models.CharField(max_length=50)
-    notes = models.TextField(blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+
+    
 📅 6. Planning prévisionnel (exemple)
 
 Étape	Durée	Détail
